@@ -1,0 +1,19 @@
+h1 {
+    color: white;
+    text-align: center;
+    background-color: dimgrey;
+    padding: 20px;
+
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: whitesmoke;
+    margin: 0;
+}
+
+
+
+input{
+    background-color: darkslategrey;
+}

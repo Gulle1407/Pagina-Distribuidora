@@ -1,0 +1,106 @@
+<html>
+ <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title> Distribuidora </title>
+ 
+ <link rel="stylesheet" href="css/index.css">
+</head>
+<h1>Distribuidora</h1> 
+<body>    
+
+    <div class="mainContainer">
+            <button type="button" id="logOut">Log Out</button><br><br>
+        <div class="buttonContainer">
+            <div class="box">
+            <button id="buttonIdSearch" data-target="boxIdSearch">Buscar Producto por Id</button> <br>
+            </div>
+
+            <div class="box">
+            <button id="buttonNameSearch" data-target="boxNameSearch">Buscar Producto por nombre</button> <br>
+            </div>
+
+            <div class="box">
+            <button id="buttonList"  data-target="boxList">Listar Productos</button> <br>
+            </div>
+            
+            <div class="box">
+            <button id="buttonAdd" data-target="boxAdd"> Añadir Producto</button> <br>
+            </div>
+            
+            <div class="box">
+            <button id="buttonUpdate">Actualizar Producto</button> <br>
+            </div>
+            
+            <div class="box">
+            <button id="buttonDelete">Eliminar Producto</button> <br>
+            </div>
+        
+        </div>
+        <br><br>
+
+        <div id="boxIdSearch" class="SelectBox hidden">
+                <label for="productId">Buscar producto por Id:</label> <br><br>
+                <input type="number" id="productId" placeholder="Buscar" required> <br><br>
+                <button id="ApiButtonIdSearch">Buscar Producto</button> <br><br>
+                <div class="response">
+                    <pre id="idSearchOutput"></pre>
+            </div>
+        </div>
+
+        <div id="boxNameSearch" class="SelectBox hidden">
+                <label for="productName">Buscar producto por nombre:</label> <br><br>
+                <input type="text" id="productName" placeholder="Buscar" required> 
+                <br><br>
+                <button id="ApiButtonNameSearch">Buscar Producto</button> <br><br>
+                <div class="response">
+                    <pre id="nameSearchOutput">
+                    </pre>
+                </div>
+        </div>
+
+        <div id="boxList" class="SelectBox hidden">
+            <button id="ApiButtonList">Obtener</button> <br><br>
+            <div class="response">
+                <pre id="listOutput"></pre>
+            </div>
+        </div>
+
+        <div id="boxAdd" class="SelectBox hidden">
+            <form class="form" id="ApiFormAdd">
+
+                <label for="fName" >Nombre: </label><br>
+                <input type="text" id="fName" name="nombre" required maxlength="30"><br><br>
+                <label for="fPrice">Precio: </label><br>
+                <input type="number" id="fPrice" name="precio" required min="500" max="100000"><br><br>
+                <label for="fDesc">Descripcion: </label><br>
+                <input type="text" id="fDesc" name="descripcion" required maxlength="100"><br><br>
+
+                <label for="fCat">Categoria: </label><br>
+                <select id="fCat" name="categoria" required>
+                    <option value="VEGETALES">Vegetales</option>
+                    <option value="LACTEOS">Lacteos</option>
+                    <option value="ALMACEN">Almacen</option>
+                    <option value="GALLETAS">Galletas</option>
+                    <option value="LIMPIEZA">Limpieza</option>
+                </select> <br><br>
+
+                <label for="fStock">Stock: </label><br>
+                <input type="number" id="fStock" name="stock" required min="1" max="1000"><br><br>
+              
+                <input type="submit"  value="Añadir" class="ApiButton">
+            
+            </form>
+            <div class="response">
+                <pre id="addOutput"></pre>
+            </div>
+        </div>
+
+        
+    </div>
+</div>
+<div id="result"></div>
+    <script src="js/app.js"> </script>
+</body>
+
+</html>
