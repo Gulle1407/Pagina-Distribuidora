@@ -15,6 +15,7 @@ Instrucciones de ejecucion:
     spring.datasource.password=contraseña
 
 4. Ejecutar en el directorio donde se encuentra el pom.xml:
+   
     mvn spring-boot:run
 
 La aplicacion corre en http://localhost:8080
