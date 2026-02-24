@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,7 +49,7 @@ public class ProductoController {
 	}
 
 	@GetMapping("/listProducts")
-	public List<ProductoDTO> getAllProducts() {
+	public List<ProductoDTO> getAllProductos() {
 		List<Producto> lista= productoService.getAll();
 		return productoMapper.ToDtoList(lista);				
 		
@@ -70,5 +71,14 @@ public class ProductoController {
 			return ResponseEntity.noContent().build();
 		}else return ResponseEntity.notFound().build();
 	}
+	
+	@PutMapping("/actualizar") 
+	public ResponseEntity<ProductoDTO> updateProductoPrice(@RequestBody ProductoUpdateDTO updateDto){
+		Optional<Producto> p = productoService.updateProductoPrice(updateDto);
+		return p.map(productoMapper::productoToDto) 
+				.map(dto -> ResponseEntity.status(HttpStatus.OK).body(dto))
+				.orElse(ResponseEntity.status(HttpStatus.CONFLICT).build()); 	
+	}
+	
 	
 }

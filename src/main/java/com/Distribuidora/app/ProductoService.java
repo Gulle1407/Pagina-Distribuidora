@@ -1,8 +1,10 @@
 package com.Distribuidora.app;
 
+import java.beans.Transient;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 @Service
 public class ProductoService {
@@ -45,6 +47,16 @@ public class ProductoService {
 				return true;
 			}
 			return false;
+	}
+	
+	public Optional<Producto> updateProductoPrice(ProductoUpdateDTO updateP) {
+		Optional<Producto> p = productoRepository.findByNombre(updateP.getNombre());
+		if(p.isPresent()) {
+			Producto pSave = p.get();
+			pSave.setPrecio(updateP.getPrecio());
+			productoRepository.save(pSave);
+		} return p;
+		
 	}
 	
 	

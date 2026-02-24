@@ -29,7 +29,7 @@
             </div>
             
             <div class="box">
-            <button id="buttonUpdate">Actualizar Producto</button> <br>
+            <button id="buttonUpdate" data-target="boxUpdate">Actualizar Precio</button> <br>
             </div>
             
             <div class="box">
@@ -102,6 +102,20 @@
             <button id="ApiButtonDelete">Borrar</button> <br><br>
             <div class="response">
                 <pre id="deleteOutput"></pre>
+            </div>
+        
+        </div>
+
+        <div id="boxUpdate" class="SelectBox hidden">
+            <form class="form" id="ApiFormUpdate">
+                <label for="fNameUp" >Nombre: </label><br>
+                <input type="text" id="fNameUp" name="nombre" required maxlength="30"><br><br>
+                <label for="fPriceUp">Precio: </label><br>
+                <input type="number" id="fPriceUp" name="precio" required min="500" max="100000"><br><br>
+           
+                <input type="submit"  value="Actualizar" class="ApiButton">
+            <div class="response">
+                <pre id="updateOutput"></pre>
             </div>
         </div>
 

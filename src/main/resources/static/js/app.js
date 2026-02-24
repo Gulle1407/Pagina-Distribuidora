@@ -4,13 +4,9 @@ const getProductByIdName = document.getElementById("ApiButtonNameSearch");
 const getProductList = document.getElementById("ApiButtonList");
 const formProductAdd = document.getElementById("ApiFormAdd");
 const deleteProductByName = document.getElementById("ApiButtonDelete");
+const formUpdateProductPrice = document.getElementById("ApiFormUpdate");
+
 const logOutButton = document.getElementById("logOut");
-
-const botonBusquedaId = document.getElementById("buttonIdSearch");
-const boxBusquedaId = document.getElementById("boxIdSearch");
-const botonBusquedaNombre = document.getElementById("buttonNameSearch");
-const boxBusquedaNombre = document.getElementById("boxNameSearch");
-
 
 const allBoxes = document.querySelectorAll(".SelectBox");
 
@@ -98,7 +94,6 @@ async function fetchList(){
             throw new Error("No se pudo conseguir el recurso");
         }
 
-        //indicar lista vacia sea el caso
         const data = await ApiResponse.json();
         displayId.innerText = JSON.stringify(data, null, 2).replace(/[{}"]/g, "");
 
@@ -124,7 +119,6 @@ async function fetchAdd(){
             body: JSON.stringify(postData)
         })
         if(!ApiResponse.ok  ){ 
-            const errorData = await ApiResponse.text();
             throw new Error(`Error ${ApiResponse.status}`);
         }
 
@@ -158,6 +152,32 @@ async function fetchDelete(){
     }
 }
 
+async function fetchUpdatePrice(){
+    const displayId = document.getElementById("updateOutput")
+    const formData = new FormData(formUpdateProductPrice);
+    const putData = Object.fromEntries(formData)
+    try{
+        console.log(JSON.stringify(putData))
+        const ApiResponse = await fetch(`http://localhost:8080/api/actualizar`,{
+        method: 'PUT',
+            headers:{'Content-Type':'application/json',
+            },
+            body: JSON.stringify(putData)
+        })
+        if(!ApiResponse.ok){ 
+            throw new Error(`Error ${ApiResponse.status}`);
+        }
+
+        const data = await ApiResponse.json();
+        displayId.innerText = `Producto actualizado:
+            ${JSON.stringify(data, null, 2).replace(/[{}"]/g, "")}`;
+
+    }catch(error){
+        console.log(error);
+        displayId.innerText = error;
+    }
+}
+
 
 logOutButton.addEventListener("click",fetchOut)
 
@@ -173,3 +193,8 @@ formProductAdd.addEventListener('submit',event =>{
 })
 
 deleteProductByName.addEventListener("click", fetchDelete);
+
+formUpdateProductPrice.addEventListener('submit',event =>{
+    event.preventDefault();
+    fetchUpdatePrice()
+})
