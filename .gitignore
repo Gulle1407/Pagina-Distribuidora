@@ -31,11 +31,12 @@ build/
 
 ### VS Code ###
 .vscode/
-
 target/
 .settings/
 .idea/
 *.log
+
+bin/
 
 # OS
 .DS_Store

@@ -25,27 +25,6 @@ public class ProductoService {
 	}
 
 	
-	/*	
-	 		Optional<Producto> p = productoRepository.findByNombre(producto.getNombre());
-		if(!p.isPresent()) {
-			productoRepository.save(producto);
-			return ResponseEntity.status(HttpStatus.CREATED).build();
-		}
-		return  ResponseEntity.status(HttpStatus.CONFLICT).body("Producto ya existente");
-
-	public Producto addProductoOrUpdateByName(Producto producto) {
-		Optional<Producto> p = productoRepository.findByNombre(producto.getNombre());
-		if(p.isPresent()) {
-			Producto existent = p.get();
-			existent.setDescripcion(producto.getDescripcion());
-			existent.setCategoria(producto.getCategoria());
-			existent.setPrecio(producto.getPrecio());
-			existent.setStock(producto.getStock());
-			return productoRepository.save(existent);
-		} else 	return productoRepository.save(producto);
-	}
-*/
-	
 	public Optional<Producto> getById(Long id){
 		return productoRepository.findById(id);
 	}
@@ -57,7 +36,16 @@ public class ProductoService {
 	
 	public List<Producto> getAll(){
 		return productoRepository.findAll();
-		
 	}
+	
+	public boolean deleteProductoByName(String nombre){
+			Optional<Producto> p = productoRepository.findByNombre(nombre);
+			if(p.isPresent()) {
+				productoRepository.deleteByNombre(nombre);
+				return true;
+			}
+			return false;
+	}
+	
 	
 }

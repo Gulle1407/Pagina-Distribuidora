@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -60,6 +61,14 @@ public class ProductoController {
 		return producto.map(productoMapper::productoToDto) //transformamos el optional a optionaldto
 				.map(dto -> ResponseEntity.status(HttpStatus.CREATED).body(dto))// optional dto si existe a response entity created con body dto
 				.orElse(ResponseEntity.status(HttpStatus.CONFLICT).build()); //optional no existe devolvemos conflicto
+	}
+	
+	@DeleteMapping("/eliminar/{nombre}")
+	public ResponseEntity<String> deleteProducto(@PathVariable String nombre) { 
+		boolean borrado = productoService.deleteProductoByName(nombre);
+		if(borrado) {
+			return ResponseEntity.noContent().build();
+		}else return ResponseEntity.notFound().build();
 	}
 	
 }

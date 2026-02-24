@@ -3,6 +3,7 @@ const getProductByIdButton = document.getElementById("ApiButtonIdSearch");
 const getProductByIdName = document.getElementById("ApiButtonNameSearch");
 const getProductList = document.getElementById("ApiButtonList");
 const formProductAdd = document.getElementById("ApiFormAdd");
+const deleteProductByName = document.getElementById("ApiButtonDelete");
 const logOutButton = document.getElementById("logOut");
 
 const botonBusquedaId = document.getElementById("buttonIdSearch");
@@ -30,7 +31,6 @@ document.querySelectorAll("[data-target]").forEach(button => {
 
 
 async function fetchOut(){
-    console.log("entrao")
     await fetch("/logout",{
         method:"POST"
     })    
@@ -50,7 +50,7 @@ async function fetchId(){
         }
 
         const data = await ApiResponse.json();
-        displayId.innerText = JSON.stringify(data, null, 2).replace(replace);
+        displayId.innerText = JSON.stringify(data, null, 2).replace(/[{}"]/g, "");
 
     }catch(error){
         console.log(error);
@@ -75,7 +75,7 @@ async function fetchName(){
         }
 
         const data = await ApiResponse.json();
-        displayId.innerText = JSON.stringify(data, null, 2).replace(replace);
+        displayId.innerText = JSON.stringify(data, null, 2).replace(/[{}"]/g, "");
 
     }catch(error){
         console.log(error);
@@ -100,7 +100,7 @@ async function fetchList(){
 
         //indicar lista vacia sea el caso
         const data = await ApiResponse.json();
-        displayId.innerText = JSON.stringify(data, null, 2).replace(replace);
+        displayId.innerText = JSON.stringify(data, null, 2).replace(/[{}"]/g, "");
 
     }catch(error){
         console.log(error);
@@ -112,12 +112,10 @@ async function fetchList(){
 
 
 async function fetchAdd(){
-//    console.log("entro")
     const displayId = document.getElementById("addOutput")
     const formData = new FormData(formProductAdd);
     const postData = Object.fromEntries(formData)
     try{
-//        console.log("enviando")
         console.log(JSON.stringify(postData))
         const ApiResponse = await fetch(`http://localhost:8080/api/crear`,{
         method: 'POST',
@@ -125,22 +123,40 @@ async function fetchAdd(){
             },
             body: JSON.stringify(postData)
         })
-        if(!ApiResponse.ok){ 
+        if(!ApiResponse.ok  ){ 
             const errorData = await ApiResponse.text();
             throw new Error(`Error ${ApiResponse.status}`);
         }
 
         const data = await ApiResponse.json();
         displayId.innerText = `Producto añadido: 
-            ${JSON.stringify(data, null, 2).replace(replace)}`;
+            ${JSON.stringify(data, null, 2).replace(/[{}"]/g, "")}`;
 
     }catch(error){
         console.log(error);
         displayId.innerText = error;
-
     }
 }
 
+
+async function fetchDelete(){
+    const productName = document.getElementById("productNameD").value;
+    const displayId = document.getElementById("deleteOutput");
+    try{
+        if(!productName) throw new Error("Falta ingresar datos");
+        const ApiResponse = await fetch(`http://localhost:8080/api/eliminar/${productName}`,{
+            method: "DELETE"
+        })
+        if(!ApiResponse.ok){
+            throw new Error(`Error ${ApiResponse.status}`);
+        }
+        displayId.innerText = "Producto eliminado"
+    }
+    catch(error){
+        console.log(error);
+        displayId.innerText = error;
+    }
+}
 
 
 logOutButton.addEventListener("click",fetchOut)
@@ -154,5 +170,6 @@ getProductList.addEventListener("click",fetchList)
 formProductAdd.addEventListener('submit',event =>{
     event.preventDefault();
     fetchAdd()
-}
-)
+})
+
+deleteProductByName.addEventListener("click", fetchDelete);

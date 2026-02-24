@@ -33,7 +33,7 @@
             </div>
             
             <div class="box">
-            <button id="buttonDelete">Eliminar Producto</button> <br>
+            <button id="buttonDelete" data-target="boxDelete">Eliminar Producto</button> <br>
             </div>
         
         </div>
@@ -93,6 +93,15 @@
             </form>
             <div class="response">
                 <pre id="addOutput"></pre>
+            </div>
+        </div>
+
+        <div id="boxDelete" class="SelectBox hidden">
+            <label for="productNameD">Eliminar producto por nombre:</label> <br><br>
+            <input type="text" id="productNameD" placeholder="Nombre" required> <br><br>
+            <button id="ApiButtonDelete">Borrar</button> <br><br>
+            <div class="response">
+                <pre id="deleteOutput"></pre>
             </div>
         </div>
 
