@@ -5,12 +5,27 @@ RESTful CRUD API built with Spring Boot, secured with Spring Security, connected
 The frontend consumes the API using JavaScript fetch and receives JSON responses.
 
 
+Instrucciones de ejecucion:
+1. Clonar el repositorio
+2. Crear base de datos en PostgreSQL
+3. Configurar application.properties:
+
+    spring.datasource.url=jdbc:postgresql://localhost:5432/BaseDeDatos
+    spring.datasource.username=usuario
+    spring.datasource.password=contraseña
+
+4. Ejecutar en el directorio donde se encuentra el pom.xml:
+    mvn spring-boot:run
+
+La aplicacion corre en http://localhost:8080
+
 - Java 21
 - Spring Boot
 - Spring Security
 - Spring Data JPA
 - PostgreSQL
 - Mapstruct
+- Maven
 
 
 Usuario de prueba
